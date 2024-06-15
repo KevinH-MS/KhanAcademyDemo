@@ -52,6 +52,7 @@
                 "type": "none"
             },
             "spec": {
+                "url": "https://kevinh-ms.github.io/KhanAcademyDemo/openapi.yaml",
                 "api_description": "{\"openapi\":\"3.0.1\",\"info\":{\"title\":\"KhanAcademy\",\"description\":\"An endpoint to get a list of tutorials on a topic.\",\"version\":\"0.1.0\"},\"servers\":[{\"url\":\"https://www.khanacademy.org/api/internal/_rg/khanmigo\"}],\"paths\":{\"/search_content\":{\"get\":{\"tags\":[\"Tutorials\"],\"summary\":\"API for fetching khanacademy tutorials list\",\"operationId\":\"getTutorials\",\"description\":\"Endpoint to query for tutorials.\",\"parameters\":[{\"name\":\"query\",\"in\":\"query\",\"description\":\"The topic, for which we need the list of tutorials, is passed in this parameter (example: astronomy, math, logarithms, marine biology, addition, space etc.)\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"responses\":{\"200\":{\"description\":\"OK - Returns a list of relevant tutorial links\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"}}}}}}}}}}}}",
                 "progress_style": "ShowUsageWithInput"
             },
