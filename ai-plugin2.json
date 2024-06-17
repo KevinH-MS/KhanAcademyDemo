@@ -1,0 +1,63 @@
+{
+    "schema_version": "v2",
+    "description_for_model": "Plugin for getting learning content from Khan Academy based on questions asked by the user",
+    "name_for_human": "Khan Academy",
+    "description_for_human": "Returns tutorial suggestions for user queries.",
+    "logo_url": "https://raw.githubusercontent.com/sohearn-xandr/khanmigo_test_spec/main/logo.png",
+    "contact_email": "nisshukla@microsoft.com",
+    "legal_info_url": "https://foo.com/legal/",
+    "privacy_policy_url": "https://foo.com/privacy-policy",
+    "functions": [
+        {
+            "name": "khanacademy_getTutorials",
+            "description": "Gets tutorial suggestions for user queries.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The requested tutorials topic, eg. `addition`, `rome`, `logarithms`, solarsystem`, `biology`, `geography`"
+                    }
+                },
+                "required": [
+                    "query"
+                ]
+            },
+            "states": {
+                "reasoning": {
+                    "description": "\n# `khanacademy_getTutorials(**params) -> str`: Returns a list of relevant tutorials relevant to the user messages.",
+                    "instructions": [
+                        "I **must always** check if the question is related to previous questions by the user? If so, I **must** pick the topic the questions belong to in singular form without spaces, as the `query(string, required)` parameter and I **must** invoke `khanacademy_getTutorials(**params)` to provide list of tutorials, so the user can learn more.",
+                        "Here are the parameters: ",
+                        " * `query(string, required)`: topic user messages belong to in a singular form, without spaces, eg. `addition`, `mathematics`, `rome`, `logarithms`, solarsystem`, `marinebiology`, `biology`, `geography`"
+                    ],
+                    "examples": "\n\n```python\n# context\ntimestamp = \"Thu, 18 Apr 2024 10:01:34 GMT-04:00\"\nlocation = \"\"\nconversation_memory = [{'author': 'user', 'text': 'what is 1+1?'}, {'author': 'bot','tool_invocation': 'generate_response()'}, {'author': 'bot', 'text': 'The sum of **1 + 1** is **2**. \\uD83E\\uDDEE'}]\nturn_memory = []\nuser_input = 'what is 1/3'\n\n# tool invocations\nsearch_web(\"1/3\")\nkhanacademy_getTutorials(query=\"arithmetics\")\ngenerate_response()```\n\n"
+                },
+                "responding": {
+                    "description": "\n- `khanacademy_getTutorials(**params) -> str`: Returns a list of tutorials relevant to the user messages.",
+                    "instructions": [
+                        "I **must not** respond until I get a response back from `khanacademy_getTutorials(**params)`",
+                        "I **must always** present with no more than 10 tutorials",
+                        "I **must not** mention `khanacademy_getTutorials` tool name"
+                    ]
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "none"
+            },
+            "spec": {
+                "url": "https://kevinh-ms.github.io/KhanAcademyDemo/openapi.yaml",
+                "api_description": "{\"openapi\":\"3.0.1\",\"info\":{\"title\":\"KhanAcademy\",\"description\":\"An endpoint to get a list of tutorials on a topic.\",\"version\":\"0.1.0\"},\"servers\":[{\"url\":\"https://www.khanacademy.org/api/internal/_rg/khanmigo\"}],\"paths\":{\"/search_content\":{\"get\":{\"tags\":[\"Tutorials\"],\"summary\":\"API for fetching khanacademy tutorials list\",\"operationId\":\"getTutorials\",\"description\":\"Endpoint to query for tutorials.\",\"parameters\":[{\"name\":\"query\",\"in\":\"query\",\"description\":\"The topic, for which we need the list of tutorials, is passed in this parameter (example: astronomy, math, logarithms, marine biology, addition, space etc.)\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"responses\":{\"200\":{\"description\":\"OK - Returns a list of relevant tutorial links\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"}}}}}}}}}}}}",
+                "progress_style": "ShowUsageWithInput"
+            },
+            "run_for_functions": [
+                "khanacademy_getTutorials"
+            ]
+        }
+    ]
+}
