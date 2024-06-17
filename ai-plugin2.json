@@ -48,7 +48,7 @@
         {
             "type": "OpenApi",
             "auth": {
-                "type": "none"
+                "type": "None"
             },
             "spec": {
                 "url": "https://kevinh-ms.github.io/KhanAcademyDemo/openapi.yaml",
